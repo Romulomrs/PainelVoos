@@ -39,7 +39,7 @@ void listarVoos(Voo* lista) {
         printf("Nenhum voo cadastrado.\n");
         return;
     }
-    printf("\n%-5s %-12s %-15s %-8s %-6s %-20s\n", "VOO", "COMPANHIA", "DESTINO", "PORTAO", "HORA", "OBSERVACAO");
+    printf("\n%-5s %-12s %-15s %-8s %-6s %-20s\n", "VOO", "COMPANHIA", "DESTINO", "PORTÃO", "HORA", "OBSERVAÇÃO");
     printf("--------------------------------------------------------------------------\n");
     while (lista != NULL) {
         printf("%-5d %-12s %-15s %-8s %-6s %-20s\n",
@@ -58,19 +58,19 @@ Voo* buscarVoo(Voo* lista, int numero) {
 
 void alterarVoo(Voo* v) {
     if (v == NULL) {
-        printf("Voo nao encontrado.\n");
+        printf("Voo não encontrado.\n");
         return;
     }
-    printf("Alterando informacoes do voo %d:\n", v->voo);
+    printf("Alterando informações do voo %d:\n", v->voo);
     printf("Nova companhia: ");
     scanf(" %[^\n]", v->companhia);
     printf("Novo destino: ");
     scanf(" %[^\n]", v->destino);
-    printf("Novo portao: ");
+    printf("Novo portão: ");
     scanf(" %[^\n]", v->portao);
     printf("Nova hora (HH:MM): ");
     scanf(" %5[^\n]", v->hora);
-    printf("Nova observacao: ");
+    printf("Nova observação: ");
     scanf(" %[^\n]", v->observacao);
 }
 
@@ -81,7 +81,7 @@ void removerVoo(Voo** lista, int numero) {
         atual = atual->prox;
     }
     if (atual == NULL) {
-        printf("Voo nao encontrado.\n");
+        printf("Voo não encontrado.\n");
         return;
     }
     if (anterior == NULL) {
@@ -115,27 +115,27 @@ Voo* criarVoo() {
         printf("Erro ao alocar memoria.\n");
         exit(1);
     }
-    printf("Numero do voo: ");
+    printf("Número do voo: ");
     scanf("%d", &novo->voo);
     printf("Companhia: ");
     scanf(" %[^\n]", novo->companhia);
     printf("Destino: ");
     scanf(" %[^\n]", novo->destino);
-    printf("Portao: ");
+    printf("Portão: ");
     scanf(" %[^\n]", novo->portao);
     printf("Hora (HH:MM): ");
     scanf(" %5[^\n]", novo->hora);
-    printf("Observacao: ");
+    printf("Observação: ");
     scanf(" %[^\n]", novo->observacao);
     novo->prox = NULL;
     return novo;
 }
 
 void inserirVoosIniciais(Voo** lista) {
-    inserirVoo(lista, criarVooManual(101, "Latam", "Sao Paulo", "A1", "08:30", "No horario"));
+    inserirVoo(lista, criarVooManual(101, "Latam", "São Paulo", "A1", "08:30", "No horário"));
     inserirVoo(lista, criarVooManual(205, "Gol", "Rio de Janeiro", "B2", "09:15", "Embarque iniciado"));
     inserirVoo(lista, criarVooManual(309, "Azul", "Recife", "C3", "07:50", "Atrasado"));
-    inserirVoo(lista, criarVooManual(410, "Latam", "Curitiba", "A2", "10:05", "No horario"));
+    inserirVoo(lista, criarVooManual(410, "Latam", "Curitiba", "A2", "10:05", "No horário"));
 }
 
 int main() {
@@ -166,7 +166,7 @@ int main() {
                 listarVoos(lista);
                 break;
             case 3:
-                printf("Informe o numero do voo para alterar: ");
+                printf("Informe o número do voo para alterar: ");
                 scanf("%d", &numVoo);
                 {
                     Voo* vAlterar = buscarVoo(lista, numVoo);
@@ -177,12 +177,12 @@ int main() {
                         inserirVoo(&lista, &dadosAntigos);
                         printf("Voo alterado com sucesso!\n");
                     } else {
-                        printf("Voo nao encontrado.\n");
+                        printf("Voo não encontrado.\n");
                     }
                 }
                 break;
             case 4:
-                printf("Informe o numero do voo para remover: ");
+                printf("Informe o número do voo para remover: ");
                 scanf("%d", &numVoo);
                 removerVoo(&lista, numVoo);
                 break;
@@ -195,7 +195,7 @@ int main() {
                 printf("Saindo...\n");
                 return 0;
             default:
-                printf("Opcao invalida.\n");
+                printf("Opção inválida.\n");
         }
     }
 }
