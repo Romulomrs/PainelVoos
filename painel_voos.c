@@ -7,7 +7,7 @@ typedef struct Voo {
     char companhia[50];
     char destino[50];
     char portao[10];
-    char hora[6]; // "HH:MM"
+    char hora[6]; /* Formato: HH:MM */
     char observacao[50];
     struct Voo* prox;
 } Voo;
