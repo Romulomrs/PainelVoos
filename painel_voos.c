@@ -1,7 +1,11 @@
+//Importa bibliotecas padrão: entrada/saída, alocação de memória e manipulação de strings.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Define uma struct Voo com os dados do voo.
+// Campo prox serve para criar uma lista encadeada.
 typedef struct Voo {
     int voo;
     char companhia[50];
@@ -11,7 +15,8 @@ typedef struct Voo {
     char observacao[50];
     struct Voo* prox;
 } Voo;
-
+// Função para comparar duas horas no formato "HH:MM".
+// Retorna um valor negativo se h1 < h2, zero se h1 == h2, e positivo se h1 > h2.
 int compararHora(const char* h1, const char* h2) {
     int hh1, mm1, hh2, mm2;
     sscanf(h1, "%d:%d", &hh1, &mm1);
@@ -19,7 +24,8 @@ int compararHora(const char* h1, const char* h2) {
     if (hh1 != hh2) return hh1 - hh2;
     return mm1 - mm2;
 }
-
+// Função para inserir um novo voo na lista de forma ordenada por hora.
+// A lista é ordenada de forma crescente.
 void inserirVoo(Voo** lista, Voo* novo) {
     if (*lista == NULL || compararHora(novo->hora, (*lista)->hora) < 0) {
         novo->prox = *lista;
@@ -33,7 +39,8 @@ void inserirVoo(Voo** lista, Voo* novo) {
     novo->prox = atual->prox;
     atual->prox = novo;
 }
-
+// Função para listar todos os voos cadastrados.
+// Exibe os dados de cada voo em formato tabular.
 void listarVoos(Voo* lista) {
     if (lista == NULL) {
         printf("Nenhum voo cadastrado.\n");
@@ -47,7 +54,8 @@ void listarVoos(Voo* lista) {
         lista = lista->prox;
     }
 }
-
+// Função para buscar um voo pelo número.
+// Retorna um ponteiro para o voo encontrado ou NULL se não encontrado.
 Voo* buscarVoo(Voo* lista, int numero) {
     while (lista != NULL) {
         if (lista->voo == numero) return lista;
@@ -55,7 +63,8 @@ Voo* buscarVoo(Voo* lista, int numero) {
     }
     return NULL;
 }
-
+//  Função para alterar os dados de um voo.
+// Recebe um ponteiro para o voo e atualiza seus dados.
 void alterarVoo(Voo* v) {
     if (v == NULL) {
         printf("Voo nao encontrado.\n");
@@ -73,7 +82,8 @@ void alterarVoo(Voo* v) {
     printf("Nova observacao: ");
     scanf(" %[^\n]", v->observacao);
 }
-
+// Função para remover um voo da lista pelo número.
+// Atualiza a lista para remover o voo encontrado.
 void removerVoo(Voo** lista, int numero) {
     Voo *atual = *lista, *anterior = NULL;
     while (atual != NULL && atual->voo != numero) {
@@ -92,7 +102,8 @@ void removerVoo(Voo** lista, int numero) {
     free(atual);
     printf("Voo removido com sucesso.\n");
 }
-
+// Função para criar um voo manualmente com dados pré-definidos.
+// Retorna um ponteiro para o novo voo alocado.
 Voo* criarVooManual(int num, const char* comp, const char* dest, const char* port, const char* hora, const char* obs) {
     Voo* novo = (Voo*)malloc(sizeof(Voo));
     if (!novo) {
@@ -108,7 +119,8 @@ Voo* criarVooManual(int num, const char* comp, const char* dest, const char* por
     novo->prox = NULL;
     return novo;
 }
-
+// Função para criar um novo voo a partir de entrada do usuário.
+// Solicita os dados do voo e retorna um ponteiro para o novo voo alocado.
 Voo* criarVoo() {
     Voo* novo = (Voo*)malloc(sizeof(Voo));
     if (!novo) {
@@ -130,14 +142,16 @@ Voo* criarVoo() {
     novo->prox = NULL;
     return novo;
 }
-
+// Função para inserir voos iniciais na lista.
+// Esses voos são criados com dados pré-definidos para facilitar os testes.
 void inserirVoosIniciais(Voo** lista) {
     inserirVoo(lista, criarVooManual(101, "Latam", "Sao Paulo", "A1", "08:30", "No horario"));
     inserirVoo(lista, criarVooManual(205, "Gol", "Rio de Janeiro", "B2", "09:15", "Embarque iniciado"));
     inserirVoo(lista, criarVooManual(309, "Azul", "Recife", "C3", "07:50", "Atrasado"));
     inserirVoo(lista, criarVooManual(410, "Latam", "Curitiba", "A2", "10:05", "No horario"));
 }
-
+// Função principal que executa o painel de voos.
+// Permite ao usuário inserir, listar, alterar e remover voos.
 int main() {
     Voo* lista = NULL;
     int opcao, numVoo;
